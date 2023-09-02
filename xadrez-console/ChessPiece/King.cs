@@ -1,11 +1,11 @@
-﻿using tabuleiro;
+﻿using board;
 
-namespace xadrez {
+namespace chessPiece {
     class King : Piece {
 
-        private PartidaDeXadrez partida;
+        private ChessGame partida;
 
-        public King(ChessBoard tab, Collor cor, PartidaDeXadrez partida) : base(tab, cor) {
+        public King(ChessBoard tab, Collor cor, ChessGame partida) : base(tab, cor) {
             this.partida = partida;
         }
 
@@ -14,80 +14,80 @@ namespace xadrez {
         }
 
         private bool podeMover(Position pos) {
-            Piece p = tab.peca(pos);
-            return p == null || p.cor != cor;
+            Piece p = ChessBoard.ChessPiece(pos);
+            return p == null || p.Collor != Collor;
         }
 
         private bool testeTorreParaRoque(Position pos) {
-            Piece p = tab.peca(pos);
-            return p != null && p is Tower && p.cor == cor && p.qteMovimentos == 0;
+            Piece p = ChessBoard.ChessPiece(pos);
+            return p != null && p is Tower && p.Collor == Collor && p.AmountOfMoves == 0;
         }
 
-        public override bool[,] movimentosPossiveis() {
-            bool[,] mat = new bool[tab.linhas, tab.colunas];
+        public override bool[,] PossibleMoves() {
+            bool[,] mat = new bool[ChessBoard.Lines, ChessBoard.Columns];
 
             Position pos = new Position(0, 0);
 
             // acima
-            pos.SetValue(posicao.Line - 1, posicao.Column);
-            if (tab.posicaoValida(pos) && podeMover(pos)) {
+            pos.SetValue(Position.Line - 1, Position.Column);
+            if (ChessBoard.PositionValid(pos) && podeMover(pos)) {
                 mat[pos.Line, pos.Column] = true;
             }
             // ne
-            pos.SetValue(posicao.Line - 1, posicao.Column + 1);
-            if (tab.posicaoValida(pos) && podeMover(pos)) {
+            pos.SetValue(Position.Line - 1, Position.Column + 1);
+            if (ChessBoard.PositionValid(pos) && podeMover(pos)) {
                 mat[pos.Line, pos.Column] = true;
             }
             // direita
-            pos.SetValue(posicao.Line, posicao.Column + 1);
-            if (tab.posicaoValida(pos) && podeMover(pos)) {
+            pos.SetValue(Position.Line, Position.Column + 1);
+            if (ChessBoard.PositionValid(pos) && podeMover(pos)) {
                 mat[pos.Line, pos.Column] = true;
             }
             // se
-            pos.SetValue(posicao.Line + 1, posicao.Column + 1);
-            if (tab.posicaoValida(pos) && podeMover(pos)) {
+            pos.SetValue(Position.Line + 1, Position.Column + 1);
+            if (ChessBoard.PositionValid(pos) && podeMover(pos)) {
                 mat[pos.Line, pos.Column] = true;
             }
             // abaixo
-            pos.SetValue(posicao.Line + 1, posicao.Column);
-            if (tab.posicaoValida(pos) && podeMover(pos)) {
+            pos.SetValue(Position.Line + 1, Position.Column);
+            if (ChessBoard.PositionValid(pos) && podeMover(pos)) {
                 mat[pos.Line, pos.Column] = true;
             }
             // so
-            pos.SetValue(posicao.Line + 1, posicao.Column - 1);
-            if (tab.posicaoValida(pos) && podeMover(pos)) {
+            pos.SetValue(Position.Line + 1, Position.Column - 1);
+            if (ChessBoard.PositionValid(pos) && podeMover(pos)) {
                 mat[pos.Line, pos.Column] = true;
             }
             // esquerda
-            pos.SetValue(posicao.Line, posicao.Column - 1);
-            if (tab.posicaoValida(pos) && podeMover(pos)) {
+            pos.SetValue(Position.Line, Position.Column - 1);
+            if (ChessBoard.PositionValid(pos) && podeMover(pos)) {
                 mat[pos.Line, pos.Column] = true;
             }
             // no
-            pos.SetValue(posicao.Line - 1, posicao.Column - 1);
-            if (tab.posicaoValida(pos) && podeMover(pos)) {
+            pos.SetValue(Position.Line - 1, Position.Column - 1);
+            if (ChessBoard.PositionValid(pos) && podeMover(pos)) {
                 mat[pos.Line, pos.Column] = true;
             }
 
             // #jogadaespecial roque
-            if (qteMovimentos==0 && !partida.xeque) {
+            if (AmountOfMoves==0 && !partida.CheckMate) {
                 // #jogadaespecial roque pequeno
-                Position posT1 = new Position(posicao.Line, posicao.Column + 3);
+                Position posT1 = new Position(Position.Line, Position.Column + 3);
                 if (testeTorreParaRoque(posT1)) {
-                    Position p1 = new Position(posicao.Line, posicao.Column + 1);
-                    Position p2 = new Position(posicao.Line, posicao.Column + 2);
-                    if (tab.peca(p1)==null && tab.peca(p2)==null) {
-                        mat[posicao.Line, posicao.Column + 2] = true;
+                    Position p1 = new Position(Position.Line, Position.Column + 1);
+                    Position p2 = new Position(Position.Line, Position.Column + 2);
+                    if (ChessBoard.ChessPiece(p1)==null && ChessBoard.ChessPiece(p2)==null) {
+                        mat[Position.Line, Position.Column + 2] = true;
                     }
                 }
                 // #jogadaespecial roque grande
-                Position posT2 = new Position(posicao.Line, posicao.Column - 4);
+                Position posT2 = new Position(Position.Line, Position.Column - 4);
                 if (testeTorreParaRoque(posT2)) {
-                    Position p1 = new Position(posicao.Line, posicao.Column - 1);
-                    Position p2 = new Position(posicao.Line, posicao.Column - 2);
-                    Position p3 = new Position(posicao.Line, posicao.Column - 3);
-                    if (tab.peca(p1) == null && tab.peca(p2) == null && tab.peca(p3) == null) {
-                        mat[posicao.Line, posicao.Column - 2] = true;
+                    Position p1 = new Position(Position.Line, Position.Column - 1);
+                    Position p2 = new Position(Position.Line, Position.Column - 2);
+                    Position p3 = new Position(Position.Line, Position.Column - 3);
+                    if (ChessBoard.ChessPiece(p1) == null && ChessBoard.ChessPiece(p2) == null && ChessBoard.ChessPiece(p3) == null) {
+                        mat[Position.Line, Position.Column - 2] = true;
                     }
                 }
             } 

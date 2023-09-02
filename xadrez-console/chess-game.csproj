@@ -54,7 +54,7 @@
     <Compile Include="ChessPiece\Bishop.cs" />
     <Compile Include="ChessPiece\Horse.cs" />
     <Compile Include="ChessPiece\Lady.cs" />
-    <Compile Include="ChessPiece\PartidaDeXadrez.cs" />
+    <Compile Include="ChessPiece\ChessGame.cs" />
     <Compile Include="ChessPiece\Pawn.cs" />
     <Compile Include="ChessPiece\PositionChess.cs" />
     <Compile Include="ChessPiece\King.cs" />

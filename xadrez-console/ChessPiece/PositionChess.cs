@@ -1,22 +1,25 @@
-﻿using tabuleiro;
+﻿using board;
 
-namespace xadrez {
+namespace chessPiece {
     class PositionChess {
 
-        public char coluna { get; set; }
-        public int linha { get; set; }
+        public char Column { get; set; }
+        public int Line { get; set; }
 
-        public PositionChess(char coluna, int linha) {
-            this.coluna = coluna;
-            this.linha = linha;
+        public PositionChess(char coluna, int linha)
+        {
+            Column = coluna;
+            Line = linha;
         }
 
-        public Position toPosicao() {
-            return new Position(8 - linha, coluna - 'a');
+        public Position ToPosition()
+        {
+            return new Position(8 - Line, Column - 'a');
         }
 
-        public override string ToString() {
-            return "" + coluna + linha;
+        public override string ToString()
+        {
+            return "" + Column + Line;
         }
     }
 }

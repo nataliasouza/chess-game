@@ -1,12 +1,12 @@
-﻿using tabuleiro;
+﻿using board;
 
-namespace xadrez {
+namespace chessPiece {
 
     class Pawn : Piece {
 
-        private PartidaDeXadrez partida;
+        private ChessGame partida;
 
-        public Pawn(ChessBoard tab, Collor cor, PartidaDeXadrez partida) : base(tab, cor) {
+        public Pawn(ChessBoard tab, Collor cor, ChessGame partida) : base(tab, cor) {
             this.partida = partida;
         }
 
@@ -15,77 +15,77 @@ namespace xadrez {
         }
 
         private bool existeInimigo(Position pos) {
-            Piece p = tab.peca(pos);
-            return p != null && p.cor != cor;
+            Piece p = ChessBoard.ChessPiece(pos);
+            return p != null && p.Collor != Collor;
         }
 
         private bool livre(Position pos) {
-            return tab.peca(pos) == null;
+            return ChessBoard.ChessPiece(pos) == null;
         }
 
-        public override bool[,] movimentosPossiveis() {
-            bool[,] mat = new bool[tab.linhas, tab.colunas];
+        public override bool[,] PossibleMoves() {
+            bool[,] mat = new bool[ChessBoard.Lines, ChessBoard.Columns];
 
             Position pos = new Position(0, 0);
 
-            if (cor == Collor.Branca) {
-                pos.SetValue(posicao.Line - 1, posicao.Column);
-                if (tab.posicaoValida(pos) && livre(pos)) {
+            if (Collor == Collor.White) {
+                pos.SetValue(Position.Line - 1, Position.Column);
+                if (ChessBoard.PositionValid(pos) && livre(pos)) {
                     mat[pos.Line, pos.Column] = true;
                 }
-                pos.SetValue(posicao.Line - 2, posicao.Column);
-                Position p2 = new Position(posicao.Line - 1, posicao.Column);
-                if (tab.posicaoValida(p2) && livre(p2) && tab.posicaoValida(pos) && livre(pos) && qteMovimentos == 0) {
+                pos.SetValue(Position.Line - 2, Position.Column);
+                Position p2 = new Position(Position.Line - 1, Position.Column);
+                if (ChessBoard.PositionValid(p2) && livre(p2) && ChessBoard.PositionValid(pos) && livre(pos) && AmountOfMoves == 0) {
                     mat[pos.Line, pos.Column] = true;
                 }
-                pos.SetValue(posicao.Line - 1, posicao.Column - 1);
-                if (tab.posicaoValida(pos) && existeInimigo(pos)) {
+                pos.SetValue(Position.Line - 1, Position.Column - 1);
+                if (ChessBoard.PositionValid(pos) && existeInimigo(pos)) {
                     mat[pos.Line, pos.Column] = true;
                 }
-                pos.SetValue(posicao.Line - 1, posicao.Column + 1);
-                if (tab.posicaoValida(pos) && existeInimigo(pos)) {
+                pos.SetValue(Position.Line - 1, Position.Column + 1);
+                if (ChessBoard.PositionValid(pos) && existeInimigo(pos)) {
                     mat[pos.Line, pos.Column] = true;
                 }
 
                 // #jogadaespecial en passant
-                if (posicao.Line == 3) {
-                    Position esquerda = new Position(posicao.Line, posicao.Column - 1);
-                    if (tab.posicaoValida(esquerda) && existeInimigo(esquerda) && tab.peca(esquerda) == partida.vulneravelEnPassant) {
+                if (Position.Line == 3) {
+                    Position esquerda = new Position(Position.Line, Position.Column - 1);
+                    if (ChessBoard.PositionValid(esquerda) && existeInimigo(esquerda) && ChessBoard.ChessPiece(esquerda) == partida.vulneravelEnPassant) {
                         mat[esquerda.Line - 1, esquerda.Column] = true;
                     }
-                    Position direita = new Position(posicao.Line, posicao.Column + 1);
-                    if (tab.posicaoValida(direita) && existeInimigo(direita) && tab.peca(direita) == partida.vulneravelEnPassant) {
+                    Position direita = new Position(Position.Line, Position.Column + 1);
+                    if (ChessBoard.PositionValid(direita) && existeInimigo(direita) && ChessBoard.ChessPiece(direita) == partida.vulneravelEnPassant) {
                         mat[direita.Line - 1, direita.Column] = true;
                     }
                 }
             }
             else {
-                pos.SetValue(posicao.Line + 1, posicao.Column);
-                if (tab.posicaoValida(pos) && livre(pos)) {
+                pos.SetValue(Position.Line + 1, Position.Column);
+                if (ChessBoard.PositionValid(pos) && livre(pos)) {
                     mat[pos.Line, pos.Column] = true;
                 }
-                pos.SetValue(posicao.Line + 2, posicao.Column);
-                Position p2 = new Position(posicao.Line + 1, posicao.Column);
-                if (tab.posicaoValida(p2) && livre(p2) && tab.posicaoValida(pos) && livre(pos) && qteMovimentos == 0) {
+                pos.SetValue(Position.Line + 2, Position.Column);
+                Position p2 = new Position(Position.Line + 1, Position.Column);
+                if (ChessBoard.PositionValid(p2) && livre(p2) && ChessBoard.PositionValid(pos) && livre(pos) && AmountOfMoves == 0) {
                     mat[pos.Line, pos.Column] = true;
                 }
-                pos.SetValue(posicao.Line + 1, posicao.Column - 1);
-                if (tab.posicaoValida(pos) && existeInimigo(pos)) {
+                pos.SetValue(Position.Line + 1, Position.Column - 1);
+                if (ChessBoard.PositionValid(pos) && existeInimigo(pos)) {
                     mat[pos.Line, pos.Column] = true;
                 }
-                pos.SetValue(posicao.Line + 1, posicao.Column + 1);
-                if (tab.posicaoValida(pos) && existeInimigo(pos)) {
+                pos.SetValue(Position.Line + 1, Position.Column + 1);
+                if (ChessBoard.PositionValid(pos) && existeInimigo(pos)) {
                     mat[pos.Line, pos.Column] = true;
                 }
 
                 // #jogadaespecial en passant
-                if (posicao.Line == 4) {
-                    Position esquerda = new Position(posicao.Line, posicao.Column - 1);
-                    if (tab.posicaoValida(esquerda) && existeInimigo(esquerda) && tab.peca(esquerda) == partida.vulneravelEnPassant) {
+                if (Position.Line == 4) {
+                    Position esquerda = new Position(Position.Line, Position.Column - 1);
+                    if (ChessBoard.PositionValid(esquerda) && existeInimigo(esquerda) && ChessBoard.ChessPiece(esquerda) == partida.vulneravelEnPassant) {
                         mat[esquerda.Line + 1, esquerda.Column] = true;
                     }
-                    Position direita = new Position(posicao.Line, posicao.Column + 1);
-                    if (tab.posicaoValida(direita) && existeInimigo(direita) && tab.peca(direita) == partida.vulneravelEnPassant) {
+                    Position direita = new Position(Position.Line, Position.Column + 1);
+                    if (ChessBoard.PositionValid(direita) && existeInimigo(direita) && ChessBoard.ChessPiece(direita) == partida.vulneravelEnPassant) {
                         mat[direita.Line + 1, direita.Column] = true;
                     }
                 }

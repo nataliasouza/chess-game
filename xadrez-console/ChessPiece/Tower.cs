@@ -1,6 +1,6 @@
-﻿using tabuleiro;
+﻿using board;
 
-namespace xadrez {
+namespace chessPiece {
     class Tower : Piece {
 
         public Tower(ChessBoard tab, Collor cor) : base(tab, cor) {
@@ -11,50 +11,50 @@ namespace xadrez {
         }
 
         private bool podeMover(Position pos) {
-            Piece p = tab.peca(pos);
-            return p == null || p.cor != cor;
+            Piece p = ChessBoard.ChessPiece(pos);
+            return p == null || p.Collor != Collor;
         }
 
-        public override bool[,] movimentosPossiveis() {
-            bool[,] mat = new bool[tab.linhas, tab.colunas];
+        public override bool[,] PossibleMoves() {
+            bool[,] mat = new bool[ChessBoard.Lines, ChessBoard.Columns];
 
             Position pos = new Position(0, 0);
 
             // acima
-            pos.SetValue(posicao.Line - 1, posicao.Column);
-            while (tab.posicaoValida(pos) && podeMover(pos)) {
+            pos.SetValue(Position.Line - 1, Position.Column);
+            while (ChessBoard.PositionValid(pos) && podeMover(pos)) {
                 mat[pos.Line, pos.Column] = true;
-                if (tab.peca(pos) != null && tab.peca(pos).cor != cor) {
+                if (ChessBoard.ChessPiece(pos) != null && ChessBoard.ChessPiece(pos).Collor != Collor) {
                     break;
                 }
                 pos.Line = pos.Line - 1;
             }
 
             // abaixo
-            pos.SetValue(posicao.Line + 1, posicao.Column);
-            while (tab.posicaoValida(pos) && podeMover(pos)) {
+            pos.SetValue(Position.Line + 1, Position.Column);
+            while (ChessBoard.PositionValid(pos) && podeMover(pos)) {
                 mat[pos.Line, pos.Column] = true;
-                if (tab.peca(pos) != null && tab.peca(pos).cor != cor) {
+                if (ChessBoard.ChessPiece(pos) != null && ChessBoard.ChessPiece(pos).Collor != Collor) {
                     break;
                 }
                 pos.Line = pos.Line + 1;
             }
 
             // direita
-            pos.SetValue(posicao.Line, posicao.Column + 1);
-            while (tab.posicaoValida(pos) && podeMover(pos)) {
+            pos.SetValue(Position.Line, Position.Column + 1);
+            while (ChessBoard.PositionValid(pos) && podeMover(pos)) {
                 mat[pos.Line, pos.Column] = true;
-                if (tab.peca(pos) != null && tab.peca(pos).cor != cor) {
+                if (ChessBoard.ChessPiece(pos) != null && ChessBoard.ChessPiece(pos).Collor != Collor) {
                     break;
                 }
                 pos.Column = pos.Column + 1;
             }
 
             // esquerda
-            pos.SetValue(posicao.Line, posicao.Column - 1);
-            while (tab.posicaoValida(pos) && podeMover(pos)) {
+            pos.SetValue(Position.Line, Position.Column - 1);
+            while (ChessBoard.PositionValid(pos) && podeMover(pos)) {
                 mat[pos.Line, pos.Column] = true;
-                if (tab.peca(pos) != null && tab.peca(pos).cor != cor) {
+                if (ChessBoard.ChessPiece(pos) != null && ChessBoard.ChessPiece(pos).Collor != Collor) {
                     break;
                 }
                 pos.Column = pos.Column - 1;
