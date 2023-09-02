@@ -1,4 +1,5 @@
-﻿namespace tabuleiro {
+﻿namespace board
+{
     enum Collor {
 
         White,

@@ -1,4 +1,4 @@
-﻿namespace tabuleiro
+﻿namespace board
 {
     class Position {
 
