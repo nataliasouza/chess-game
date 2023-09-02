@@ -3,17 +3,12 @@
 namespace chessPiece {
     class Tower : Piece {
 
-        public Tower(ChessBoard tab, Collor cor) : base(tab, cor) {
+        public Tower(ChessBoard board, Collor ccollor) : base(board, ccollor) {
         }
 
         public override string ToString() {
             return "T";
-        }
-
-        private bool podeMover(Position pos) {
-            Piece p = ChessBoard.ChessPiece(pos);
-            return p == null || p.Collor != Collor;
-        }
+        }        
 
         public override bool[,] PossibleMoves() {
             bool[,] mat = new bool[ChessBoard.Lines, ChessBoard.Columns];
@@ -22,7 +17,7 @@ namespace chessPiece {
 
             // acima
             pos.SetValue(Position.Line - 1, Position.Column);
-            while (ChessBoard.PositionValid(pos) && podeMover(pos)) {
+            while (ChessBoard.PositionValid(pos) && CanMove(pos)) {
                 mat[pos.Line, pos.Column] = true;
                 if (ChessBoard.ChessPiece(pos) != null && ChessBoard.ChessPiece(pos).Collor != Collor) {
                     break;
@@ -32,7 +27,7 @@ namespace chessPiece {
 
             // abaixo
             pos.SetValue(Position.Line + 1, Position.Column);
-            while (ChessBoard.PositionValid(pos) && podeMover(pos)) {
+            while (ChessBoard.PositionValid(pos) && CanMove(pos)) {
                 mat[pos.Line, pos.Column] = true;
                 if (ChessBoard.ChessPiece(pos) != null && ChessBoard.ChessPiece(pos).Collor != Collor) {
                     break;
@@ -42,7 +37,7 @@ namespace chessPiece {
 
             // direita
             pos.SetValue(Position.Line, Position.Column + 1);
-            while (ChessBoard.PositionValid(pos) && podeMover(pos)) {
+            while (ChessBoard.PositionValid(pos) && CanMove(pos)) {
                 mat[pos.Line, pos.Column] = true;
                 if (ChessBoard.ChessPiece(pos) != null && ChessBoard.ChessPiece(pos).Collor != Collor) {
                     break;
@@ -52,7 +47,7 @@ namespace chessPiece {
 
             // esquerda
             pos.SetValue(Position.Line, Position.Column - 1);
-            while (ChessBoard.PositionValid(pos) && podeMover(pos)) {
+            while (ChessBoard.PositionValid(pos) && CanMove(pos)) {
                 mat[pos.Line, pos.Column] = true;
                 if (ChessBoard.ChessPiece(pos) != null && ChessBoard.ChessPiece(pos).Collor != Collor) {
                     break;

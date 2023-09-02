@@ -15,6 +15,12 @@
             AmountOfMoves = 0;
         }
 
+        protected bool CanMove(Position pos)
+        {
+            Piece p = ChessBoard.ChessPiece(pos);
+            return p == null || p.Collor != Collor;
+        }
+
         public void IncreaseNumberOfMoves()
         {
             AmountOfMoves++;

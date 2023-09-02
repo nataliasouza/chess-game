@@ -5,19 +5,13 @@ namespace chessPiece
 
     class Bishop : Piece {
 
-        public Bishop(ChessBoard tab, Collor cor) : base(tab, cor)
+        public Bishop(ChessBoard board, Collor collor) : base(board, collor)
         { }
 
         public override string ToString() 
         {
             return "B";
-        }
-
-        private bool podeMover(Position pos)
-        {
-            Piece p = ChessBoard.ChessPiece(pos);
-            return p == null || p.Collor != Collor;
-        }
+        }            
         
         public override bool[,] PossibleMoves() 
         {
@@ -27,7 +21,7 @@ namespace chessPiece
 
             // NO
             pos.SetValue(Position.Line - 1, Position.Column - 1);
-            while (ChessBoard.PositionValid(pos) && podeMover(pos)) 
+            while (ChessBoard.PositionValid(pos) && CanMove(pos)) 
             {
                 mat[pos.Line, pos.Column] = true;
                 if (ChessBoard.ChessPiece(pos) != null && ChessBoard.ChessPiece(pos).Collor != Collor) 
@@ -39,7 +33,7 @@ namespace chessPiece
 
             // NE
             pos.SetValue(Position.Line - 1, Position.Column + 1);
-            while (ChessBoard.PositionValid(pos) && podeMover(pos)) 
+            while (ChessBoard.PositionValid(pos) && CanMove(pos)) 
             {
                 mat[pos.Line, pos.Column] = true;
                 if (ChessBoard.ChessPiece(pos) != null && ChessBoard.ChessPiece(pos).Collor != Collor) 
@@ -51,7 +45,7 @@ namespace chessPiece
 
             // SE
             pos.SetValue(Position.Line + 1, Position.Column + 1);
-            while (ChessBoard.PositionValid(pos) && podeMover(pos)) 
+            while (ChessBoard.PositionValid(pos) && CanMove(pos)) 
             {
                 mat[pos.Line, pos.Column] = true;
                 if (ChessBoard.ChessPiece(pos) != null && ChessBoard.ChessPiece(pos).Collor != Collor) 
@@ -63,7 +57,7 @@ namespace chessPiece
 
             // SO
             pos.SetValue(Position.Line + 1, Position.Column - 1);
-            while (ChessBoard.PositionValid(pos) && podeMover(pos))
+            while (ChessBoard.PositionValid(pos) && CanMove(pos))
             {
                 mat[pos.Line, pos.Column] = true;
                 if (ChessBoard.ChessPiece(pos) != null && ChessBoard.ChessPiece(pos).Collor != Collor) 

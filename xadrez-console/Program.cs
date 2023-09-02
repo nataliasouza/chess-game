@@ -21,7 +21,7 @@ namespace xadrez_console {
                         Console.WriteLine();
                         Console.Write("Origem: ");
                         Position origin = Screen.ReadChessPosition().ToPosition();
-                        match.validarPosicaoDeOrigem(origin);
+                        match.ValidateOriginPosition(origin);
 
                         bool[,] posicoesPossiveis = match.Board.ChessPiece(origin).PossibleMoves();
 
@@ -31,9 +31,9 @@ namespace xadrez_console {
                         Console.WriteLine();
                         Console.Write("Destino: ");
                         Position destino = Screen.ReadChessPosition().ToPosition();
-                        match.validarPosicaoDeDestino(origin, destino);
+                        match.ValidateDestinationPosition(origin, destino);
 
-                        match.realizaJogada(origin, destino);
+                        match.PerformsMove(origin, destino);
                     }
                     catch (BoardException e)
                     {

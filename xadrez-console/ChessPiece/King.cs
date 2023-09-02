@@ -3,22 +3,17 @@
 namespace chessPiece {
     class King : Piece {
 
-        private ChessGame partida;
+        private readonly ChessGame _match;
 
-        public King(ChessBoard tab, Collor cor, ChessGame partida) : base(tab, cor) {
-            this.partida = partida;
+        public King(ChessBoard board, Collor collor, ChessGame match) : base(board, collor) {
+            _match = match;
         }
 
         public override string ToString() {
             return "R";
         }
 
-        private bool podeMover(Position pos) {
-            Piece p = ChessBoard.ChessPiece(pos);
-            return p == null || p.Collor != Collor;
-        }
-
-        private bool testeTorreParaRoque(Position pos) {
+        private bool TestTower(Position pos) {
             Piece p = ChessBoard.ChessPiece(pos);
             return p != null && p is Tower && p.Collor == Collor && p.AmountOfMoves == 0;
         }
@@ -30,50 +25,50 @@ namespace chessPiece {
 
             // acima
             pos.SetValue(Position.Line - 1, Position.Column);
-            if (ChessBoard.PositionValid(pos) && podeMover(pos)) {
+            if (ChessBoard.PositionValid(pos) && CanMove(pos)) {
                 mat[pos.Line, pos.Column] = true;
             }
             // ne
             pos.SetValue(Position.Line - 1, Position.Column + 1);
-            if (ChessBoard.PositionValid(pos) && podeMover(pos)) {
+            if (ChessBoard.PositionValid(pos) && CanMove(pos)) {
                 mat[pos.Line, pos.Column] = true;
             }
             // direita
             pos.SetValue(Position.Line, Position.Column + 1);
-            if (ChessBoard.PositionValid(pos) && podeMover(pos)) {
+            if (ChessBoard.PositionValid(pos) && CanMove(pos)) {
                 mat[pos.Line, pos.Column] = true;
             }
             // se
             pos.SetValue(Position.Line + 1, Position.Column + 1);
-            if (ChessBoard.PositionValid(pos) && podeMover(pos)) {
+            if (ChessBoard.PositionValid(pos) && CanMove(pos)) {
                 mat[pos.Line, pos.Column] = true;
             }
             // abaixo
             pos.SetValue(Position.Line + 1, Position.Column);
-            if (ChessBoard.PositionValid(pos) && podeMover(pos)) {
+            if (ChessBoard.PositionValid(pos) && CanMove(pos)) {
                 mat[pos.Line, pos.Column] = true;
             }
             // so
             pos.SetValue(Position.Line + 1, Position.Column - 1);
-            if (ChessBoard.PositionValid(pos) && podeMover(pos)) {
+            if (ChessBoard.PositionValid(pos) && CanMove(pos)) {
                 mat[pos.Line, pos.Column] = true;
             }
             // esquerda
             pos.SetValue(Position.Line, Position.Column - 1);
-            if (ChessBoard.PositionValid(pos) && podeMover(pos)) {
+            if (ChessBoard.PositionValid(pos) && CanMove(pos)) {
                 mat[pos.Line, pos.Column] = true;
             }
             // no
             pos.SetValue(Position.Line - 1, Position.Column - 1);
-            if (ChessBoard.PositionValid(pos) && podeMover(pos)) {
+            if (ChessBoard.PositionValid(pos) && CanMove(pos)) {
                 mat[pos.Line, pos.Column] = true;
             }
 
             // #jogadaespecial roque
-            if (AmountOfMoves==0 && !partida.CheckMate) {
+            if (AmountOfMoves==0 && !_match.CheckMate) {
                 // #jogadaespecial roque pequeno
                 Position posT1 = new Position(Position.Line, Position.Column + 3);
-                if (testeTorreParaRoque(posT1)) {
+                if (TestTower(posT1)) {
                     Position p1 = new Position(Position.Line, Position.Column + 1);
                     Position p2 = new Position(Position.Line, Position.Column + 2);
                     if (ChessBoard.ChessPiece(p1)==null && ChessBoard.ChessPiece(p2)==null) {
@@ -82,7 +77,7 @@ namespace chessPiece {
                 }
                 // #jogadaespecial roque grande
                 Position posT2 = new Position(Position.Line, Position.Column - 4);
-                if (testeTorreParaRoque(posT2)) {
+                if (TestTower(posT2)) {
                     Position p1 = new Position(Position.Line, Position.Column - 1);
                     Position p2 = new Position(Position.Line, Position.Column - 2);
                     Position p3 = new Position(Position.Line, Position.Column - 3);
@@ -91,8 +86,6 @@ namespace chessPiece {
                     }
                 }
             } 
-
-
             return mat;
         }
     }
