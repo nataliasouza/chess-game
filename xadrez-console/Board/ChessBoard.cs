@@ -1,56 +1,69 @@
-﻿namespace tabuleiro {
+﻿namespace board 
+{
     class ChessBoard {
 
-        public int linhas { get; set; }
-        public int colunas { get; set; }
-        private Piece[,] pecas;
+        public int Lines { get; set; }
+        public int Columns { get; set; }
+        private readonly Piece[,] Piece;
 
-        public ChessBoard(int linhas, int colunas) {
-            this.linhas = linhas;
-            this.colunas = colunas;
-            pecas = new Piece[linhas, colunas]; 
+        public ChessBoard(int lines, int columns)
+        {
+            Lines = lines;
+            Columns = columns;
+            Piece = new Piece[lines, columns]; 
         }
 
-        public Piece peca(int linha, int coluna) {
-            return pecas[linha, coluna];
+        public Piece ReturnPart(int line, int column)
+        {
+            return Piece[line, column];
         }
 
-        public Piece peca(Position pos) {
-            return pecas[pos.Line, pos.Column];
+        public Piece ChessPiece(Position pos)
+        {
+            return Piece[pos.Line, pos.Column];
         }
 
-        public bool existePeca(Position pos) {
-            validarPosicao(pos);
-            return peca(pos) != null;
+        public bool ExistsPiece(Position pos)
+        {
+            ValidatePosition(pos);
+            return ChessPiece(pos) != null;
         }
 
-        public void colocarPeca(Piece p, Position pos) {
-            if (existePeca(pos)) {
+        public void InsertPart(Piece p, Position pos)
+        {
+            if (ExistsPiece(pos))
+            {
                 throw new BoardException("Já existe uma peça nessa posição!");
             }
-            pecas[pos.Line, pos.Column] = p;
-            p.posicao = pos;
+            Piece[pos.Line, pos.Column] = p;
+            p.Position = pos;
         }
 
-        public Piece retirarPeca(Position pos) {
-            if (peca(pos) == null) {
+        public Piece RemovePiece(Position pos) 
+        {
+            if (ChessPiece(pos) == null) 
+            {
                 return null;
             }
-            Piece aux = peca(pos);
-            aux.posicao = null;
-            pecas[pos.Line, pos.Column] = null;
+            Piece aux = ChessPiece(pos);
+            aux.Position = null;
+            Piece[pos.Line, pos.Column] = null;
             return aux;
         }
 
-        public bool posicaoValida(Position pos) {
-            if (pos.Line<0 || pos.Line>=linhas || pos.Column<0 || pos.Column>=colunas) {
+        public bool PositionValid(Position pos)
+        {
+            if (pos.Line<0 || pos.Line>=Lines || pos.Column<0 || pos.Column>=Columns)
+            {
                 return false;
             }
             return true;
         }
 
-        public void validarPosicao(Position pos) {
-            if (!posicaoValida(pos)) {
+        public void ValidatePosition(Position pos)
+        {
+            if (!PositionValid(pos))
+            {
                 throw new BoardException("Posição inválida!");
             }
         }
