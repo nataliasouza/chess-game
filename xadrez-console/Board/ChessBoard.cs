@@ -16,7 +16,7 @@
         }
 
         public Piece peca(Position pos) {
-            return pecas[pos.linha, pos.coluna];
+            return pecas[pos.Line, pos.Column];
         }
 
         public bool existePeca(Position pos) {
@@ -28,7 +28,7 @@
             if (existePeca(pos)) {
                 throw new BoardException("Já existe uma peça nessa posição!");
             }
-            pecas[pos.linha, pos.coluna] = p;
+            pecas[pos.Line, pos.Column] = p;
             p.posicao = pos;
         }
 
@@ -38,12 +38,12 @@
             }
             Piece aux = peca(pos);
             aux.posicao = null;
-            pecas[pos.linha, pos.coluna] = null;
+            pecas[pos.Line, pos.Column] = null;
             return aux;
         }
 
         public bool posicaoValida(Position pos) {
-            if (pos.linha<0 || pos.linha>=linhas || pos.coluna<0 || pos.coluna>=colunas) {
+            if (pos.Line<0 || pos.Line>=linhas || pos.Column<0 || pos.Column>=colunas) {
                 return false;
             }
             return true;

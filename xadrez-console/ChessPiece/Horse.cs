@@ -21,37 +21,37 @@ namespace xadrez {
 
             Position pos = new Position(0, 0);
 
-            pos.definirValores(posicao.linha - 1, posicao.coluna - 2);
+            pos.SetValue(posicao.Line - 1, posicao.Column - 2);
             if (tab.posicaoValida(pos) && podeMover(pos)) {
-                mat[pos.linha, pos.coluna] = true;
+                mat[pos.Line, pos.Column] = true;
             }
-            pos.definirValores(posicao.linha - 2, posicao.coluna - 1);
+            pos.SetValue(posicao.Line - 2, posicao.Column - 1);
             if (tab.posicaoValida(pos) && podeMover(pos)) {
-                mat[pos.linha, pos.coluna] = true;
+                mat[pos.Line, pos.Column] = true;
             }
-            pos.definirValores(posicao.linha - 2, posicao.coluna + 1);
+            pos.SetValue(posicao.Line - 2, posicao.Column + 1);
             if (tab.posicaoValida(pos) && podeMover(pos)) {
-                mat[pos.linha, pos.coluna] = true;
+                mat[pos.Line, pos.Column] = true;
             }
-            pos.definirValores(posicao.linha - 1, posicao.coluna + 2);
+            pos.SetValue(posicao.Line - 1, posicao.Column + 2);
             if (tab.posicaoValida(pos) && podeMover(pos)) {
-                mat[pos.linha, pos.coluna] = true;
+                mat[pos.Line, pos.Column] = true;
             }
-            pos.definirValores(posicao.linha + 1, posicao.coluna + 2);
+            pos.SetValue(posicao.Line + 1, posicao.Column + 2);
             if (tab.posicaoValida(pos) && podeMover(pos)) {
-                mat[pos.linha, pos.coluna] = true;
+                mat[pos.Line, pos.Column] = true;
             }
-            pos.definirValores(posicao.linha + 2, posicao.coluna + 1);
+            pos.SetValue(posicao.Line + 2, posicao.Column + 1);
             if (tab.posicaoValida(pos) && podeMover(pos)) {
-                mat[pos.linha, pos.coluna] = true;
+                mat[pos.Line, pos.Column] = true;
             }
-            pos.definirValores(posicao.linha + 2, posicao.coluna - 1);
+            pos.SetValue(posicao.Line + 2, posicao.Column - 1);
             if (tab.posicaoValida(pos) && podeMover(pos)) {
-                mat[pos.linha, pos.coluna] = true;
+                mat[pos.Line, pos.Column] = true;
             }
-            pos.definirValores(posicao.linha + 1, posicao.coluna - 2);
+            pos.SetValue(posicao.Line + 1, posicao.Column - 2);
             if (tab.posicaoValida(pos) && podeMover(pos)) {
-                mat[pos.linha, pos.coluna] = true;
+                mat[pos.Line, pos.Column] = true;
             }
 
             return mat;

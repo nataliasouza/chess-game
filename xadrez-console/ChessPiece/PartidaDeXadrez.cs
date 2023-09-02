@@ -35,18 +35,18 @@ namespace xadrez {
             }
 
             // #jogadaespecial roque pequeno
-            if (p is King && destino.coluna == origem.coluna + 2) {
-                Position origemT = new Position(origem.linha, origem.coluna + 3);
-                Position destinoT = new Position(origem.linha, origem.coluna + 1);
+            if (p is King && destino.Column == origem.Column + 2) {
+                Position origemT = new Position(origem.Line, origem.Column + 3);
+                Position destinoT = new Position(origem.Line, origem.Column + 1);
                 Piece T = tab.retirarPeca(origemT);
                 T.incrementarQteMovimentos();
                 tab.colocarPeca(T, destinoT);
             }
 
             // #jogadaespecial roque grande
-            if (p is King && destino.coluna == origem.coluna - 2) {
-                Position origemT = new Position(origem.linha, origem.coluna - 4);
-                Position destinoT = new Position(origem.linha, origem.coluna - 1);
+            if (p is King && destino.Column == origem.Column - 2) {
+                Position origemT = new Position(origem.Line, origem.Column - 4);
+                Position destinoT = new Position(origem.Line, origem.Column - 1);
                 Piece T = tab.retirarPeca(origemT);
                 T.incrementarQteMovimentos();
                 tab.colocarPeca(T, destinoT);
@@ -54,13 +54,13 @@ namespace xadrez {
 
             // #jogadaespecial en passant
             if (p is Pawn) {
-                if (origem.coluna != destino.coluna && pecaCapturada == null) {
+                if (origem.Column != destino.Column && pecaCapturada == null) {
                     Position posP;
                     if (p.cor == Collor.Branca) {
-                        posP = new Position(destino.linha + 1, destino.coluna);
+                        posP = new Position(destino.Line + 1, destino.Column);
                     }
                     else {
-                        posP = new Position(destino.linha - 1, destino.coluna);
+                        posP = new Position(destino.Line - 1, destino.Column);
                     }
                     pecaCapturada = tab.retirarPeca(posP);
                     capturadas.Add(pecaCapturada);
@@ -80,18 +80,18 @@ namespace xadrez {
             tab.colocarPeca(p, origem);
 
             // #jogadaespecial roque pequeno
-            if (p is King && destino.coluna == origem.coluna + 2) {
-                Position origemT = new Position(origem.linha, origem.coluna + 3);
-                Position destinoT = new Position(origem.linha, origem.coluna + 1);
+            if (p is King && destino.Column == origem.Column + 2) {
+                Position origemT = new Position(origem.Line, origem.Column + 3);
+                Position destinoT = new Position(origem.Line, origem.Column + 1);
                 Piece T = tab.retirarPeca(destinoT);
                 T.decrementarQteMovimentos();
                 tab.colocarPeca(T, origemT);
             }
 
             // #jogadaespecial roque grande
-            if (p is King && destino.coluna == origem.coluna - 2) {
-                Position origemT = new Position(origem.linha, origem.coluna - 4);
-                Position destinoT = new Position(origem.linha, origem.coluna - 1);
+            if (p is King && destino.Column == origem.Column - 2) {
+                Position origemT = new Position(origem.Line, origem.Column - 4);
+                Position destinoT = new Position(origem.Line, origem.Column - 1);
                 Piece T = tab.retirarPeca(destinoT);
                 T.decrementarQteMovimentos();
                 tab.colocarPeca(T, origemT);
@@ -99,14 +99,14 @@ namespace xadrez {
 
             // #jogadaespecial en passant
             if (p is Pawn) {
-                if (origem.coluna != destino.coluna && pecaCapturada == vulneravelEnPassant) {
+                if (origem.Column != destino.Column && pecaCapturada == vulneravelEnPassant) {
                     Piece peao = tab.retirarPeca(destino);
                     Position posP;
                     if (p.cor == Collor.Branca) {
-                        posP = new Position(3, destino.coluna);
+                        posP = new Position(3, destino.Column);
                     }
                     else {
-                        posP = new Position(4, destino.coluna);
+                        posP = new Position(4, destino.Column);
                     }
                     tab.colocarPeca(peao, posP);
                 }
@@ -125,7 +125,7 @@ namespace xadrez {
 
             // #jogadaespecial promocao
             if (p is Pawn) {
-                if ((p.cor == Collor.Branca && destino.linha == 0) || (p.cor == Collor.Preta && destino.linha == 7)) {
+                if ((p.cor == Collor.Branca && destino.Line == 0) || (p.cor == Collor.Preta && destino.Line == 7)) {
                     p = tab.retirarPeca(destino);
                     pecas.Remove(p);
                     Piece dama = new Lady(tab, p.cor);
@@ -150,7 +150,7 @@ namespace xadrez {
             }
 
             // #jogadaespecial en passant
-            if (p is Pawn && (destino.linha == origem.linha - 2 || destino.linha == origem.linha + 2)) {
+            if (p is Pawn && (destino.Line == origem.Line - 2 || destino.Line == origem.Line + 2)) {
                 vulneravelEnPassant = p;
             }
             else {
@@ -232,7 +232,7 @@ namespace xadrez {
             }
             foreach (Piece x in pecasEmJogo(adversaria(cor))) {
                 bool[,] mat = x.movimentosPossiveis();
-                if (mat[R.posicao.linha, R.posicao.coluna]) {
+                if (mat[R.posicao.Line, R.posicao.Column]) {
                     return true;
                 }
             }

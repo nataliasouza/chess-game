@@ -29,65 +29,65 @@ namespace xadrez {
             Position pos = new Position(0, 0);
 
             // acima
-            pos.definirValores(posicao.linha - 1, posicao.coluna);
+            pos.SetValue(posicao.Line - 1, posicao.Column);
             if (tab.posicaoValida(pos) && podeMover(pos)) {
-                mat[pos.linha, pos.coluna] = true;
+                mat[pos.Line, pos.Column] = true;
             }
             // ne
-            pos.definirValores(posicao.linha - 1, posicao.coluna + 1);
+            pos.SetValue(posicao.Line - 1, posicao.Column + 1);
             if (tab.posicaoValida(pos) && podeMover(pos)) {
-                mat[pos.linha, pos.coluna] = true;
+                mat[pos.Line, pos.Column] = true;
             }
             // direita
-            pos.definirValores(posicao.linha, posicao.coluna + 1);
+            pos.SetValue(posicao.Line, posicao.Column + 1);
             if (tab.posicaoValida(pos) && podeMover(pos)) {
-                mat[pos.linha, pos.coluna] = true;
+                mat[pos.Line, pos.Column] = true;
             }
             // se
-            pos.definirValores(posicao.linha + 1, posicao.coluna + 1);
+            pos.SetValue(posicao.Line + 1, posicao.Column + 1);
             if (tab.posicaoValida(pos) && podeMover(pos)) {
-                mat[pos.linha, pos.coluna] = true;
+                mat[pos.Line, pos.Column] = true;
             }
             // abaixo
-            pos.definirValores(posicao.linha + 1, posicao.coluna);
+            pos.SetValue(posicao.Line + 1, posicao.Column);
             if (tab.posicaoValida(pos) && podeMover(pos)) {
-                mat[pos.linha, pos.coluna] = true;
+                mat[pos.Line, pos.Column] = true;
             }
             // so
-            pos.definirValores(posicao.linha + 1, posicao.coluna - 1);
+            pos.SetValue(posicao.Line + 1, posicao.Column - 1);
             if (tab.posicaoValida(pos) && podeMover(pos)) {
-                mat[pos.linha, pos.coluna] = true;
+                mat[pos.Line, pos.Column] = true;
             }
             // esquerda
-            pos.definirValores(posicao.linha, posicao.coluna - 1);
+            pos.SetValue(posicao.Line, posicao.Column - 1);
             if (tab.posicaoValida(pos) && podeMover(pos)) {
-                mat[pos.linha, pos.coluna] = true;
+                mat[pos.Line, pos.Column] = true;
             }
             // no
-            pos.definirValores(posicao.linha - 1, posicao.coluna - 1);
+            pos.SetValue(posicao.Line - 1, posicao.Column - 1);
             if (tab.posicaoValida(pos) && podeMover(pos)) {
-                mat[pos.linha, pos.coluna] = true;
+                mat[pos.Line, pos.Column] = true;
             }
 
             // #jogadaespecial roque
             if (qteMovimentos==0 && !partida.xeque) {
                 // #jogadaespecial roque pequeno
-                Position posT1 = new Position(posicao.linha, posicao.coluna + 3);
+                Position posT1 = new Position(posicao.Line, posicao.Column + 3);
                 if (testeTorreParaRoque(posT1)) {
-                    Position p1 = new Position(posicao.linha, posicao.coluna + 1);
-                    Position p2 = new Position(posicao.linha, posicao.coluna + 2);
+                    Position p1 = new Position(posicao.Line, posicao.Column + 1);
+                    Position p2 = new Position(posicao.Line, posicao.Column + 2);
                     if (tab.peca(p1)==null && tab.peca(p2)==null) {
-                        mat[posicao.linha, posicao.coluna + 2] = true;
+                        mat[posicao.Line, posicao.Column + 2] = true;
                     }
                 }
                 // #jogadaespecial roque grande
-                Position posT2 = new Position(posicao.linha, posicao.coluna - 4);
+                Position posT2 = new Position(posicao.Line, posicao.Column - 4);
                 if (testeTorreParaRoque(posT2)) {
-                    Position p1 = new Position(posicao.linha, posicao.coluna - 1);
-                    Position p2 = new Position(posicao.linha, posicao.coluna - 2);
-                    Position p3 = new Position(posicao.linha, posicao.coluna - 3);
+                    Position p1 = new Position(posicao.Line, posicao.Column - 1);
+                    Position p2 = new Position(posicao.Line, posicao.Column - 2);
+                    Position p3 = new Position(posicao.Line, posicao.Column - 3);
                     if (tab.peca(p1) == null && tab.peca(p2) == null && tab.peca(p3) == null) {
-                        mat[posicao.linha, posicao.coluna - 2] = true;
+                        mat[posicao.Line, posicao.Column - 2] = true;
                     }
                 }
             } 
